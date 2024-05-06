@@ -7,11 +7,20 @@
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
+    <h1>Weather API</h1>
     <form action="">
         <label for="city-input">City:</label>
         <input id="city-input" type="text">
         <button id="search-city">Search</button>
     </form>
+    <div id="weather-container">
+        <div class="city"></div>
+        <div class="country"></div>
+        <img class="icon" src=""></img>
+        <div class="text"></div>
+        <div class="temperature"></div>    
+        <button class="switch-c-f"></button>
+    </div>
     <script src="script.js"></script>
 </body>
 </html>
