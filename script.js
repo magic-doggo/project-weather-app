@@ -7,14 +7,14 @@ async function getWeather(city) {
     return weatherObject;
 }
 
+let weatherInCity;
 const searchButton = document.getElementById("search-city");
 searchButton.addEventListener("click", searchCity)
 async function searchCity(event) {
     event.preventDefault();
     inputCity = document.getElementById('city-input').value;
-    const weatherInCity = await getWeather(inputCity);
-    console.log(weatherInCity)
-    await displayWeather(weatherInCity);
+    weatherInCity = await getWeather(inputCity);
+    displayWeather(weatherInCity); //no effect?
     return weatherInCity;
 }
 
@@ -31,21 +31,21 @@ function displayWeather(cityWeather) {
     text.innerText = cityWeather.text;
     temperature.innerText = cityWeather.tempC + ' °C';
     switchTempType.innerText = 'Switch to Fahrenheit'
-    // switchTempType.addEventListener('click', swapTemperatureType)
 }
 
-// switchTempType.addEventListener('click', swapTemperatureType);
-// async function swapTemperatureType() {
-//     console.log(weatherInCity)
-//     if (switchTempType.innerText == 'Switch to Fahrenheit') {
-//         temperature.innerText = weatherInCity.tempF + ' °F';
-//         switchTempType.innerText = 'Switch to Celsius'
-//     }
-//     else if (switchTempType.innerText == 'Switch to Celsius') {
-//         temperature.innerText = weatherInCity.tempC + ' °C'
-//     }
-//     else {
-//         console.log('where did i mess up');
-//         return;
-//     }
-// }
+switchTempType.addEventListener('click', swapTemperatureType);
+async function swapTemperatureType() {
+    console.log(weatherInCity)
+    if (switchTempType.innerText == 'Switch to Fahrenheit') {
+        temperature.innerText = weatherInCity.tempF + ' °F';
+        switchTempType.innerText = 'Switch to Celsius'
+    }
+    else if (switchTempType.innerText == 'Switch to Celsius') {
+        temperature.innerText = weatherInCity.tempC + ' °C'
+        switchTempType.innerText = 'Switch to Fahrenheit'
+    }
+    else {
+        console.log('where did i mess up');
+        return;
+    }
+}
