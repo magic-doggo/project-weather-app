@@ -1,3 +1,4 @@
+let errorContainer = document.getElementById('error');
 async function getWeather(city) {
     inputCity = document.getElementById('city-input').value;
     const response = await fetch(`http://api.weatherapi.com/v1/current.json?key=c979eb95358a4f53be8121736240405&q=${inputCity}`, {mode: 'cors'});
@@ -12,10 +13,25 @@ const searchButton = document.getElementById("search-city");
 searchButton.addEventListener("click", searchCity)
 async function searchCity(event) {
     event.preventDefault();
+    showLoading()
     inputCity = document.getElementById('city-input').value;
+    errorContainer.innerText = '';
+    if (inputCity == "") {
+        console.log("empty");
+        errorContainer.innerText="Empty input, please write a real city";
+        return;
+      }
     weatherInCity = await getWeather(inputCity);
-    displayWeather(weatherInCity); //no effect?
+    displayWeather(weatherInCity);
+    hideLoading()
     return weatherInCity;
+}
+let loading = document.getElementById('loading')
+function showLoading() {
+    loading.innerText = 'Loading';
+}
+function hideLoading() {
+    loading.innerText = '';
 }
 
 const switchTempType = document.querySelector(".switch-c-f");
@@ -35,7 +51,6 @@ function displayWeather(cityWeather) {
 
 switchTempType.addEventListener('click', swapTemperatureType);
 async function swapTemperatureType() {
-    console.log(weatherInCity)
     if (switchTempType.innerText == 'Switch to Fahrenheit') {
         temperature.innerText = weatherInCity.tempF + ' °F';
         switchTempType.innerText = 'Switch to Celsius'
